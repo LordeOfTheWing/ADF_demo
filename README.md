@@ -1,2 +1,2 @@
 # ADF_demo
-This is repo contains various pipelines implemented in Azure Data Factory
+This repo contains various pipelines implemented in Azure Data Factory
