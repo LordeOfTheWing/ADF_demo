@@ -1,0 +1,9 @@
+{
+	"name": "ADF-MAESTRO",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d5dd865f-8018-48e0-b0c4-bf295a98a9c1",
+		"tenantId": "d3d18101-4c65-4933-97cb-51e1569fe116"
+	}
+}
