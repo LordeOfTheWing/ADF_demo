@@ -1,0 +1,22 @@
+{
+	"name": "SQL_SERVER_ON_PREM_DS",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=DESKTOP-OASL57F\\SQLEXPRESS;Initial Catalog=AdventureWorksDW2014;User ID=ADF-DEMO",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Admin-Maestro"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
