@@ -1,0 +1,120 @@
+{
+	"name": "pl_util_send_email_nofication",
+	"properties": {
+		"description": "This is a utility pipeline that sends email notifications.",
+		"activities": [
+			{
+				"name": "Get Email Addresses",
+				"description": "Gets the email addresses of recipients for a particular source system.",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderStoredProcedureName": "[dbo].[GetEmailAddresses]",
+						"storedProcedureParameters": {
+							"DatasetName": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.datasetName",
+									"type": "Expression"
+								}
+							},
+							"SystemCode": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.systemCode",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sqlserver_email_addresses",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach Email Address",
+				"description": "Send an email address to every recipient in email recipient table.",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Email Addresses",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Email Addresses').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Send Email",
+							"description": "Sends an email when the pipeline has completed it's execution.",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "POST",
+								"headers": {
+									"Content-Type": "application/json"
+								},
+								"url": "https://prod-06.eastus.logic.azure.com:443/workflows/d0f0d3b168d44814821598f525eaed03/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BdBHEK7kK_msVC3hqvCiqnJnsBS-M9gDA_-N2BQowDg",
+								"body": {
+									"value": "@json(concat('{\n    \"emailAddress\":\"',item().emailAddress,'\",\n    \"subject\":\"',pipeline().parameters.emailSubject,'\",\n    \"messageBody\":\"',pipeline().parameters.emailBody,'\"\n}'))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"systemCode": {
+				"type": "string",
+				"defaultValue": "OWS"
+			},
+			"datasetName": {
+				"type": "string",
+				"defaultValue": "Sales"
+			},
+			"emailSubject": {
+				"type": "string"
+			},
+			"emailBody": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Utility"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-18T17:29:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

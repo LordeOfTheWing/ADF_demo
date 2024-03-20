@@ -1,0 +1,156 @@
+{
+	"name": "pl_util_set_status_message",
+	"properties": {
+		"activities": [
+			{
+				"name": "Switch Status",
+				"description": "Constructs a message and subject depending on the supplied status of either \"Success\" or \"Failed\"",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@pipeline().parameters.status",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "Sucess",
+							"activities": [
+								{
+									"name": "Send_email_nofication - Sucess Message",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_util_send_email_nofication",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"systemCode": {
+												"value": "@pipeline().parameters.systemCode",
+												"type": "Expression"
+											},
+											"datasetName": {
+												"value": "@pipeline().parameters.datasetName",
+												"type": "Expression"
+											},
+											"emailSubject": {
+												"value": "@concat('ADF Pipeline:',pipeline().parameters.triggeredPipeline)",
+												"type": "Expression"
+											},
+											"emailBody": {
+												"value": "@concat(pipeline().parameters.triggeredPipeline,'has completed successfully')",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "Failed",
+							"activities": [
+								{
+									"name": "Send_email_nofication - Failed Message",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_util_send_email_nofication",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"systemCode": {
+												"value": "@pipeline().parameters.systemCode",
+												"type": "Expression"
+											},
+											"datasetName": {
+												"value": "@pipeline().parameters.datasetName",
+												"type": "Expression"
+											},
+											"emailSubject": {
+												"value": "@concat('ADF Pipeline:',pipeline().parameters.triggeredPipeline)",
+												"type": "Expression"
+											},
+											"emailBody": {
+												"value": "@concat(pipeline().parameters.triggeredPipeline,'has FAILED! Please check Logs')",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					],
+					"defaultActivities": [
+						{
+							"name": "Send_email_nofication - Default Message",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_util_send_email_nofication",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"systemCode": {
+										"value": "@pipeline().parameters.systemCode",
+										"type": "Expression"
+									},
+									"datasetName": {
+										"value": "@pipeline().parameters.datasetName",
+										"type": "Expression"
+									},
+									"emailSubject": {
+										"value": "@concat('ADF Pipeline:',pipeline().parameters.triggeredPipeline)",
+										"type": "Expression"
+									},
+									"emailBody": {
+										"value": "@concat(pipeline().parameters.triggeredPipeline,'has no valid status:',pipeline().parameters.status)",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"status": {
+				"type": "string"
+			},
+			"triggeredPipeline": {
+				"type": "string"
+			},
+			"systemCode": {
+				"type": "string"
+			},
+			"datasetName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Utility"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-18T19:09:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

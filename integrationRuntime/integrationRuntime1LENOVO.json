@@ -1,0 +1,7 @@
+{
+	"name": "integrationRuntime1LENOVO",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "This is the IR using the Office Computer"
+	}
+}

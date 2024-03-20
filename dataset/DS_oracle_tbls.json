@@ -1,0 +1,16 @@
+{
+	"name": "DS_oracle_tbls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Oracle_db",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Demos"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

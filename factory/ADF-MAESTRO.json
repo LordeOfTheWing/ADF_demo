@@ -1,5 +1,10 @@
 {
 	"name": "ADF-MAESTRO",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "false"
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",

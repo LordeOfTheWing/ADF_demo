@@ -1,0 +1,23 @@
+{
+	"name": "MetadataDB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=DESKTOP-OASL57F\\SQLEXPRESS;Initial Catalog=Metadata_db;User ID=Metadata",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Metadatadbpw"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1LENOVO",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

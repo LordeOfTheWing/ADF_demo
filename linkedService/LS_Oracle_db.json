@@ -1,0 +1,16 @@
+{
+	"name": "LS_Oracle_db",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=localhost;port=1523;servicename=ORCLPDB1;user id=HR",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5ODQ2OGY3Ny03NmVmLTQzZjUtYTkzZi1hNDIyMjgzNTM5ZWIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1LENOVO",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

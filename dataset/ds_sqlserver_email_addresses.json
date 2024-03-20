@@ -1,0 +1,46 @@
+{
+	"name": "ds_sqlserver_email_addresses",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MetadataDB",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Metadata"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "SystemCode",
+				"type": "varchar"
+			},
+			{
+				"name": "DatasetName",
+				"type": "varchar"
+			},
+			{
+				"name": "SystemInfoID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "EmailAddress",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EmailRecipients"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

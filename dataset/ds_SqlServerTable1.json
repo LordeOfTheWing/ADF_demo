@@ -1,0 +1,58 @@
+{
+	"name": "ds_SqlServerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MetadataDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SystemInfoID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DataObjectInfo",
+				"type": "varchar"
+			},
+			{
+				"name": "DataObjectName",
+				"type": "varchar"
+			},
+			{
+				"name": "DataObjectType",
+				"type": "varchar"
+			},
+			{
+				"name": "Container",
+				"type": "varchar"
+			},
+			{
+				"name": "RelativePathSchema",
+				"type": "varchar"
+			},
+			{
+				"name": "TechnicalName",
+				"type": "varchar"
+			},
+			{
+				"name": "UpdatedAt",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DataObjectMetadata"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
